@@ -10,9 +10,12 @@ end
 -- Function to plant saplings and chop down trees
 function plantAndChop()
     while true do
+        -- Select the slot with saplings
+        turtle.select(2)  -- Assuming saplings are in the second slot
+
         -- Plant saplings in a row, 5 blocks apart
         for i = 1, 5 do
-            turtle.place()  -- Assuming saplings are in the turtle's inventory
+            turtle.place()  -- Place sapling from the selected slot
             turtle.forward()
         end
 
