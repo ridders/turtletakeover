@@ -34,6 +34,9 @@ while true do
     -- Plant saplings
     plantSaplings()
 
+    -- Step back after planting
+    turtle.back()
+
     -- Check for tree growth and chop down
     checkAndChopTree()
 
