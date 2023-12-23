@@ -1,2 +1,2 @@
 # Turtle Takeover
-Personal Repository of Lua Code for tweaked.cc Turtles
+Personal Repository of Lua Code for Minecraft tweaked.cc Turtles
