@@ -16,6 +16,11 @@ function plantAndChop()
             turtle.forward()
         end
 
+        -- Move back to the starting position
+        for i = 1, 5 do
+            turtle.back()
+        end
+
         -- Check for tree growth
         while turtle.detect() do
             print("Tree detected. Chopping...")
@@ -26,8 +31,9 @@ function plantAndChop()
 
         -- Move back, wait, and repeat
         for i = 1, 5 do
-            turtle.back()
+            turtle.forward()
         end
+
         print("Waiting before planting again...")
         os.sleep(300)  -- Wait for 5 minutes (adjust as needed)
     end
