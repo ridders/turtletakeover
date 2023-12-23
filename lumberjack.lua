@@ -1,46 +1,46 @@
--- Function to check fuel level and refuel if needed
-function checkFuel()
-    if turtle.getFuelLevel() < 20 then
+-- Function to refuel the turtle if fuel is low
+local function refuelIfNeeded()
+    if turtle.getFuelLevel() < 500 then
         print("Low on fuel. Refueling...")
         turtle.select(1)  -- Assuming fuel is in the first slot
         turtle.refuel()
     end
 end
 
--- Function to plant saplings and chop down trees
-function plantAndChop()
-    while true do
-        -- Select the slot with saplings
-        turtle.select(2)  -- Assuming saplings are in the second slot
-
-        -- Plant saplings in a row, 5 blocks apart
-        for i = 1, 5 do
-            turtle.place()  -- Place sapling from the selected slot
-            turtle.forward()
+-- Function to plant saplings in a row
+local function plantSaplings()
+    for i = 1, 16 do
+        turtle.select(i)
+        if turtle.getItemCount(i) > 0 then
+            turtle.place()
         end
-
-        -- Move back to the starting position
-        for i = 1, 5 do
-            turtle.back()
-        end
-
-        -- Check for tree growth
-        while turtle.detect() do
-            print("Tree detected. Chopping...")
-            turtle.dig()  -- Assuming the turtle has an axe in its inventory
-            turtle.up()
-            checkFuel()
-        end
-
-        -- Move back, wait, and repeat
-        for i = 1, 5 do
-            turtle.forward()
-        end
-
-        print("Waiting before planting again...")
-        os.sleep(300)  -- Wait for 5 minutes (adjust as needed)
     end
 end
 
--- Main program
-plantAndChop()
+-- Function to check for tree growth and chop it down
+local function checkAndChopTree()
+    if turtle.detect() then
+        print("Tree detected. Chopping down...")
+        turtle.dig()
+        while turtle.detectUp() do
+            turtle.digUp()
+        end
+        print("Tree chopped down.")
+    end
+end
+
+-- Main loop
+while true do
+    -- Plant saplings
+    plantSaplings()
+
+    -- Check for tree growth and chop down
+    checkAndChopTree()
+
+    -- Refuel if needed
+    refuelIfNeeded()
+
+    -- Wait for tree to grow (adjust sleep duration based on tree growth time)
+    print("Waiting for trees to grow...")
+    os.sleep(300)  -- Sleep for 5 minutes (adjust as needed)
+end
